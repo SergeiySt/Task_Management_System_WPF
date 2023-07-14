@@ -14,3 +14,10 @@ D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Managemen
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\obj\Debug\Task_Management_System.csproj.CoreCompileInputs.cache
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\obj\Debug\Task_Management_System.exe
 D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\obj\Debug\Task_Management_System.pdb
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\bin\Debug\Dapper.dll
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\bin\Debug\EntityFramework.dll
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\bin\Debug\EntityFramework.SqlServer.dll
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\bin\Debug\Dapper.xml
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\bin\Debug\EntityFramework.xml
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\bin\Debug\EntityFramework.SqlServer.xml
+D:\ДЗ_Шаг\Windows Forms C#\GitHub\Task_Management_System_WPF\Task_Management_System\obj\Debug\Task_Management_System.csproj.CopyComplete
