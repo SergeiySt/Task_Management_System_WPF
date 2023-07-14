@@ -11,6 +11,7 @@ namespace Task_Management_System
     {
        public int id_task_table { get; set; }
        public int TaskNumber { get; set; }
+       public string TaskName { get; set; }
        public string TaskDescription { get; set; }
        public string TaskStatus { get; set; }
        public DateTime TaskDate { get; set; }

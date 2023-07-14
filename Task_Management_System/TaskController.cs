@@ -15,7 +15,7 @@ namespace Task_Management_System
             this.repository = repository;
         }
 
-        public List<Task> GetTasks()
+        public List<Task_model> GetTasks()
         {
             return repository.GetTasks();
         }
