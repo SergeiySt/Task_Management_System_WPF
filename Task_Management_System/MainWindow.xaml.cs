@@ -27,6 +27,7 @@ namespace Task_Management_System
         private TaskController controller;
         private Task_WPF taskWindow;
         private TaskRepository repository;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -58,7 +59,7 @@ namespace Task_Management_System
             // Создаем новый поток для открытия окна Task_WPF
             Thread thread = new Thread(() =>
             {
-                Task_WPF taskWindow = new Task_WPF(selectedTask);
+                taskWindow = new Task_WPF(selectedTask);
 
 
                // taskWindow.Closed += TaskWindow_Closed; // Подписываемся на событие Closed окна
@@ -87,7 +88,7 @@ namespace Task_Management_System
 
             repository.DeleteTask(selectedTask.id_task_table);
 
-            listBoxTasks.ItemsSource = repository.GetTasks();
+            //listBoxTasks.ItemsSource = repository.GetTasks();
         }
 
         private void textBoxFinde_TextChanged(object sender, TextChangedEventArgs e)
@@ -98,6 +99,18 @@ namespace Task_Management_System
                 task.TaskNumber.ToString().ToLower().Contains(searchText) ||
                 task.TaskName.ToLower().Contains(searchText)
             ).ToList();
+        }
+
+        private void buttonCreate_Click(object sender, RoutedEventArgs e)
+        {
+            Task_WPF_2 task_WPF_2 = new Task_WPF_2();
+            task_WPF_2.ShowDialog();
+        }
+
+        private void buttonUpdateList_Click(object sender, RoutedEventArgs e)
+        {
+            //listBoxTasks.ItemsSource = repository.GetTasks();
+            listBoxTasks.ItemsSource = controller.GetTasks();
         }
     }
 }

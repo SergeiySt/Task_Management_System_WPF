@@ -27,6 +27,8 @@ namespace Task_Management_System
 
         public delegate void TaskUpdatedEventHandler();
         public event TaskUpdatedEventHandler TaskUpdated;
+
+        internal Task_WPF() { }
         internal Task_WPF(Task_model selectedTask)
         {
             InitializeComponent();

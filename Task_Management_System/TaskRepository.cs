@@ -54,7 +54,7 @@ namespace Task_Management_System
                 connection.Open();
 
                 connection.Execute("INSERT INTO Task_table (TaskNumber, TaskName, TaskDescription,  TaskStatus, TaskDate) VALUES (@Task_Number, @Task_Name, @Task_Description,  @Task_Status, @Task_Date)",
-                                  new { ask_Number = TaskNumber, Task_Name = TaskName, Task_Description = TaskDescription, Task_Status = TaskStatus, Task_Date = TaskDate });
+                                  new { Task_Number = TaskNumber, Task_Name = TaskName, Task_Description = TaskDescription, Task_Status = TaskStatus, Task_Date = TaskDate });
                 System.Windows.MessageBox.Show("Задачу успішно створено", "Успішно", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Information);
             }
         }
