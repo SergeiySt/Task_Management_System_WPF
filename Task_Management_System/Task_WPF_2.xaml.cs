@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Configuration;
+using System.Threading;
 
 namespace Task_Management_System
 {
@@ -35,6 +36,7 @@ namespace Task_Management_System
         }
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
+            Thread.CurrentThread.Abort();
             this.Close();
         }
 
