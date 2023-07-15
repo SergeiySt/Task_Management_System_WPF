@@ -39,6 +39,8 @@ namespace Task_Management_System
                 textBoxTaskName.Text = task.TaskName;
                 textBoxStatus.Text = task.TaskStatus.ToString();
 
+                datePicker.SelectedDate = task.TaskDate;
+
                 FlowDocument flowDocument = new FlowDocument();
                 Paragraph paragraph = new Paragraph();
                 paragraph.Inlines.Add(task.TaskDescription);
@@ -74,8 +76,6 @@ namespace Task_Management_System
 
 
             taskRepository.UpdateTask(task.id_task_table, taskNumber, taskName, taskDescription, taskStatus, task.TaskDate);
-
-            //TaskUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 }

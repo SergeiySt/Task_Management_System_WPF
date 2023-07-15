@@ -60,24 +60,19 @@ namespace Task_Management_System
             }        
         }
 
-        //public void DeleteStudent(int id)
-        //{
-        //    try
-        //    {
-        //        if (System.Windows.MessageBox.Show("Ви точно хочете видалити студента?", "Попередження", MessageBoxButton.YesNo, (MessageBoxImage)MessageBoxIcon.Question) == MessageBoxResult.Yes)
-        //        {
-        //            string sqlQuery = "DELETE FROM Students WHERE id_students = @id_students";
-        //            dbConnection.Execute(sqlQuery, new { id_students = id });
-        //            System.Windows.MessageBox.Show("Успішно видалено", "Успішно", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Information);
-        //        }
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        if (ex.Number == 547)
-        //        {
-        //            System.Windows.MessageBox.Show("Студент не може бути видалений, тому що є пов'язані записи у списку призначених курсів", "Попередження", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
-        //        }
-        //    }
-        //}
+        public void DeleteTask(int id)
+        {
+
+            if (System.Windows.MessageBox.Show("Ви точно хочете видалити задачу?", "Попередження", MessageBoxButton.YesNo, (MessageBoxImage)MessageBoxIcon.Question) == MessageBoxResult.Yes)
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string sqlQuery = "DELETE FROM Task_table WHERE id_task_table = @Id_Task_Table";
+                    connection.Execute(sqlQuery, new { Id_Task_Table = id });
+                    System.Windows.MessageBox.Show("Успішно видалено", "Успішно", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Information);
+                }
+            }
+        }
     }
 }
