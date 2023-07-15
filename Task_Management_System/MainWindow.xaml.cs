@@ -28,6 +28,7 @@ namespace Task_Management_System
         private Task_WPF taskWindow;
         private TaskRepository repository;
 
+        private List<Thread> threadList;
         public MainWindow()
         {
             InitializeComponent();
@@ -36,22 +37,11 @@ namespace Task_Management_System
             repository = new TaskRepository(connectionString);
             controller = new TaskController(repository);
             listBoxTasks.ItemsSource = repository.GetTasks();
+
+            threadList = new List<Thread>();
         }
 
-        //private void TaskWindow_TaskUpdated()
-        //{
-        //    // Обновляем список задач
-        //    Dispatcher.Invoke(() =>
-        //    {
-        //        listBoxTasks.ItemsSource = controller.GetTasks();
-        //    });
-        //}
-        //private void TaskWindow_Closed(object sender, EventArgs e)
-        //{
-        //    // Обновляем список задач в listBox
-        //        listBoxTasks.ItemsSource = controller.GetTasks();
-        //}
-
+      
         private void listBoxTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Task_model selectedTask = (Task_model)listBoxTasks.SelectedItem;
@@ -60,19 +50,21 @@ namespace Task_Management_System
             Thread thread = new Thread(() =>
             {
                 taskWindow = new Task_WPF(selectedTask);
-
-
-               // taskWindow.Closed += TaskWindow_Closed; // Подписываемся на событие Closed окна
-              /*  taskWindow.TaskUpdated += TaskWindow_TaskUpdated;*/ // Подписываемся на событие TaskUpdated
                 taskWindow.ShowDialog();
             });
 
             thread.SetApartmentState(ApartmentState.STA); 
             thread.Start();
+
+            threadList.Add(thread);
         }
 
         private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
+            foreach (Thread thread in threadList)
+            {
+                thread.Join(); 
+            }
             System.Windows.Application.Current.Shutdown();
         }
 
@@ -101,10 +93,16 @@ namespace Task_Management_System
             ).ToList();
         }
 
-        private void buttonCreate_Click(object sender, RoutedEventArgs e)
+        private  void buttonCreate_Click(object sender, RoutedEventArgs e)
         {
-            Task_WPF_2 task_WPF_2 = new Task_WPF_2();
-            task_WPF_2.ShowDialog();
+            Thread thread = new Thread(() =>
+            {
+                Task_WPF_2 task_WPF_2 = new Task_WPF_2();
+                task_WPF_2.ShowDialog();
+            });
+
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
         private void buttonUpdateList_Click(object sender, RoutedEventArgs e)
