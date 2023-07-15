@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,27 +26,25 @@ namespace Task_Management_System
     {
         private TaskController controller;
         private Task_WPF taskWindow;
+        private TaskRepository repository;
         public MainWindow()
         {
             InitializeComponent();
 
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionDB"].ConnectionString;
-            TaskRepository repository = new TaskRepository(connectionString);
+            repository = new TaskRepository(connectionString);
             controller = new TaskController(repository);
             listBoxTasks.ItemsSource = repository.GetTasks();
-
-            
-
         }
 
-        private void TaskWindow_TaskUpdated()
-        {
-            // Обновляем список задач
-            Dispatcher.Invoke(() =>
-            {
-                listBoxTasks.ItemsSource = controller.GetTasks();
-            });
-        }
+        //private void TaskWindow_TaskUpdated()
+        //{
+        //    // Обновляем список задач
+        //    Dispatcher.Invoke(() =>
+        //    {
+        //        listBoxTasks.ItemsSource = controller.GetTasks();
+        //    });
+        //}
         //private void TaskWindow_Closed(object sender, EventArgs e)
         //{
         //    // Обновляем список задач в listBox
@@ -60,8 +59,10 @@ namespace Task_Management_System
             Thread thread = new Thread(() =>
             {
                 Task_WPF taskWindow = new Task_WPF(selectedTask);
+
+
                // taskWindow.Closed += TaskWindow_Closed; // Подписываемся на событие Closed окна
-                taskWindow.TaskUpdated += TaskWindow_TaskUpdated; // Подписываемся на событие TaskUpdated
+              /*  taskWindow.TaskUpdated += TaskWindow_TaskUpdated;*/ // Подписываемся на событие TaskUpdated
                 taskWindow.ShowDialog();
             });
 
@@ -72,6 +73,31 @@ namespace Task_Management_System
         private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void buttonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxTasks.SelectedItems.Count == 0)
+            {
+                System.Windows.MessageBox.Show("Виберіть задачу для видалення.", "Увага", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+                return;
+            }
+
+            Task_model selectedTask = (Task_model)listBoxTasks.SelectedItem;
+
+            repository.DeleteTask(selectedTask.id_task_table);
+
+            listBoxTasks.ItemsSource = repository.GetTasks();
+        }
+
+        private void textBoxFinde_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = textBoxFinde.Text.ToLower();
+
+            listBoxTasks.ItemsSource = controller.GetTasks().Where(task =>
+                task.TaskNumber.ToString().ToLower().Contains(searchText) ||
+                task.TaskName.ToLower().Contains(searchText)
+            ).ToList();
         }
     }
 }
