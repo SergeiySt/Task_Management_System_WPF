@@ -31,7 +31,6 @@ namespace Task_Management_System
             }
         }
 
-
         public bool IsTaskExist(int number_task)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -43,14 +42,25 @@ namespace Task_Management_System
             }
         }
 
-        public void UpdateTask(int id, int TaskNumber, string TaskName, string TaskDescription, string TaskStatus, DateTime TaskDate)
+        public void AddTask(int TaskNumber, string TaskName, string TaskDescription, string TaskStatus, DateTime TaskDate)
         {
             if (IsTaskExist(TaskNumber))
             {
                 System.Windows.MessageBox.Show("Такий номер задачі вже існує", "Увага", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Warning);
                 return;
             }
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
+                connection.Execute("INSERT INTO Task_table (TaskNumber, TaskName, TaskDescription,  TaskStatus, TaskDate) VALUES (@Task_Number, @Task_Name, @Task_Description,  @Task_Status, @Task_Date)",
+                                  new { ask_Number = TaskNumber, Task_Name = TaskName, Task_Description = TaskDescription, Task_Status = TaskStatus, Task_Date = TaskDate });
+                System.Windows.MessageBox.Show("Задачу успішно створено", "Успішно", MessageBoxButton.OK, (MessageBoxImage)MessageBoxIcon.Information);
+            }
+        }
+
+        public void UpdateTask(int id, int TaskNumber, string TaskName, string TaskDescription, string TaskStatus, DateTime TaskDate)
+        {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
